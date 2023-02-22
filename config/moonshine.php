@@ -7,7 +7,7 @@ return [
     'namespace' => 'App\MoonShine',
 
     'title' => env('MOONSHINE_TITLE', 'magellan-service'),
-    'logo' => env('MOONSHINE_LOGO', 'vendor\lee-to\moonshine\public\logo.png'),
+    'logo' => env('MOONSHINE_LOGO', 'Magellan-service'),
 
     'route' => [
         'prefix' => env('MOONSHINE_ROUTE_PREFIX', 'admin'),

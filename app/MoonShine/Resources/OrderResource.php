@@ -2,22 +2,20 @@
 
 namespace App\MoonShine\Resources;
 
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
-use Leeto\MoonShine\Fields\Image;
-use Leeto\MoonShine\Fields\Select;
 use Leeto\MoonShine\Fields\Text;
-use Leeto\MoonShine\Fields\Textarea;
 use Leeto\MoonShine\Resources\Resource;
 use Leeto\MoonShine\Fields\ID;
 use Leeto\MoonShine\Decorations\Block;
 use Leeto\MoonShine\Actions\FiltersAction;
 
-class ProductResource extends Resource
+class OrderResource extends Resource
 {
-	public static string $model = Product::class;
-	public static string $title = 'Товары';
+    public static string $model = Order::class;
+    public static string $title = 'Заказы';
 
     protected bool $createInModal = true;
     protected bool $editInModal = true;
@@ -31,29 +29,29 @@ class ProductResource extends Resource
 	{
 		return [
 		    Block::make('form-container', [
-		        ID::make()->sortable(),
-                Image::make('Фото', 'img')->nullable(),
-                Text::make('Бренд', 'brand')->nullable(),
-                Text::make('Артикул', 'article'),
-                Textarea::make('Номенклатура', 'nomenclature'),
-                Text::make('Склад', 'stock')->nullable(),
-                Text::make('Количество', 'count'),
-                Text::make('Цена', 'price')
+		        ID::make(),
+                Text::make('Пользователь', 'user_id'),
+                Text::make('Данные карзины', 'cart_data'),
+                Text::make('Сумма итого', 'total_sum'),
+                Text::make('Адрес', 'address'),
+                Text::make('Телефон', 'phone')
+
+
+
+
+
 		    ])
         ];
 	}
+
 	public function rules(Model $item): array
 	{
-	    return [
-            'img' => ['nullable'],
-            'stock' => ['nullable'],
-            'brand' => ['nullable'],
-        ];
+	    return [];
     }
 
     public function search(): array
     {
-        return ['id, article, nomenclature, brand, stock'];
+        return ['id'];
     }
 
     public function filters(): array

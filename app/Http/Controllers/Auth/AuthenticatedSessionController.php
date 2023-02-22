@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -17,7 +18,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        $sessionId = Session::getId();
+        \Cart::session($sessionId);
+        $cart= \Cart::getContent();
+        $sum = \Cart::getTotal('price');
+        return view('main.login', [
+            'cart' => $cart,
+            'sum' => $sum
+        ]);
     }
 
     /**

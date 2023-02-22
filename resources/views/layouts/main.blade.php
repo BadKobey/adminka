@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="{{asset('assets/flaticon/flaticon.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/default.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-    @livewireStyles
+
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -48,7 +48,7 @@
                 <div class="row align-items-center">
                     <div class="col-xxl-2 col-xl-2 col-lg-3 col-6">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="{{route('maim.index')}}">
                                 <img src="{{asset('assets/img/logo/logo.png')}}" alt="">
                             </a>
                         </div>
@@ -58,7 +58,7 @@
                             <nav id="mobile-menu">
                                 <ul>
                                     <li>
-                                        <a href="#">Главная</a>
+                                        <a href="{{route('maim.index')}}">Главная</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -70,12 +70,12 @@
                                 <div class="header__action ml-30">
                                     <ul>
                                         <li>
-                                            <a href="{{asset('/register')}}"><i class="fal fa-user-circle"></i></a>
+                                            <a href="{{asset('/profile')}}"><i class="fal fa-user-circle"></i></a>
                                         </li>
                                         <li>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#cartMiniModal">
                                                 <i class="fal fa-shopping-basket"></i>
-                                                <span class="cart-count">3</span>
+                                                <span class="cart-count">{{\Cart::session(\Illuminate\Support\Facades\Session::getId())->getTotalQuantity()}}</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -108,17 +108,36 @@
                             <button type="button" data-bs-dismiss="modal" data-bs-target="#cartMiniModal" class="cartmini__close-btn"> <i class="fal fa-times"></i></button>
                         </div>
                     </div>
+
                     <div class="cartmini__list">
+                        @foreach($cart as $item)
                         <ul>
+
+                            <li class="cartmini__item p-relative d-flex align-items-start">
+                                <div class="cartmini__thumb mr-15">
+                                    <a href="product-details.html">
+                                        <img src="assets/img/products/product-1.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="cartmini__content">
+                                    <h3 class="cartmini__title">
+                                        <a href="product-details.html">{{$item->name}}</a>
+                                    </h3>
+                                    <span class="cartmini__price">
+                                    <span class="price"> {{$item->quantity}} × {{$item->price}} руб.</span>
+                                </span>
+                                </div>
+                            </li>
                         </ul>
+                        @endforeach
                     </div>
                     <div class="cartmini__total d-flex align-items-center justify-content-between">
                         <h5>Цена:</h5>
-                        <span></span>
+                        <span>{{$sum}} руб.</span>
                     </div>
                     <div class="cartmini__bottom">
-                        <a href="cart.html" class="b-btn w-100 mb-20">корзина</a>
-                        <a href="checkout.html" class="b-btn-2 w-100">оформить заказ</a>
+                        <!-- <a href="cart.html" class="b-btn w-100 mb-20">корзина</a> -->
+                        <a href="{{route('main.checkout')}}" class="b-btn-2 w-100">оформить заказ</a>
                     </div>
                 </div>
             </div>
@@ -128,7 +147,6 @@
 <!-- cart mini area end -->
 <div class="body-overlay"></div>
 <!-- cart mini area end -->
-
 <!-- sidebar area start -->
 <section class="offcanvas__area">
     <div class="modal fade" id="offCanvasModal" tabindex="-1" aria-labelledby="offCanvasModal" aria-hidden="true">
@@ -161,26 +179,18 @@
                                 <i class="far fa-shopping-bag"></i>
                                 <span class="tag">3</span>
                             </a>
-
-
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </section>
 <!-- sidebar area end -->
 @yield('content')
-
-
     <!-- footer area start -->
     <footer>
         <div class="footer__area footer-bg">
-
-
             <div class="footer__bottom">
                 <div class="container">
                     <div class="row">
@@ -197,10 +207,7 @@
         </div>
     </footer>
     <!-- footer area end -->
-
-
     <!-- JS here -->
-    @livewireScripts
     <script src="{{asset('assets/js/vendor/jquery.js')}}"></script>
     <script src="{{asset('assets/js/vendor/waypoints.js')}}"></script>
     <script src="{{asset('assets/js/bootstrap-bundle.js')}}"></script>

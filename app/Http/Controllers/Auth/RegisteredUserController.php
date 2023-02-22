@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -20,7 +21,14 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $sessionId = Session::getId();
+        \Cart::session($sessionId);
+        $cart= \Cart::getContent();
+        $sum = \Cart::getTotal('price');
+        return view('main.register', [
+            'cart' => $cart,
+            'sum' => $sum
+        ]);
     }
 
     /**

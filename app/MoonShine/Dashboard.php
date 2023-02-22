@@ -2,6 +2,7 @@
 
 namespace App\MoonShine;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Leeto\MoonShine\Dashboard\DashboardBlock;
@@ -17,12 +18,13 @@ class Dashboard extends DashboardScreen
             DashboardBlock::make([
                 ValueMetric::make('Пользователей')
                     ->value(User::query()->count()),
-                ValueMetric::make('Организаций')
-                    ->value(User::query()->count()),
+
                 ValueMetric::make('Товаров')
                     ->value(Product::query()->count()),
+
                 ValueMetric::make('Заказов')
-                    ->value(User::query()->count())
+                    ->value(Order::query()->count()),
+
             ])
         ];
 	}

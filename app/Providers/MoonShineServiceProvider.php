@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use App\MoonShine\Resources\OrderResource;
 use App\MoonShine\Resources\ProductResource;
 use App\MoonShine\Resources\StockResource;
 use App\MoonShine\Resources\UserResource;
@@ -22,6 +24,7 @@ class MoonShineServiceProvider extends ServiceProvider
 
             UserResource::class,
             ProductResource::class,
+            OrderResource::class,
 
 
             MenuGroup::make(__('moonshine::ui.resource.system'), [
